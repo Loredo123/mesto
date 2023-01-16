@@ -1,0 +1,7 @@
+.profile__comment {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    grid-column: span 2;
+}
