@@ -1,4 +1,3 @@
-
 let formElement = document.querySelector('.popup__container');
 let nameInput = formElement.querySelector('.popup__name-edit');
 let commentInput = formElement.querySelector('.popup__comment-edit');
