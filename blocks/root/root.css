@@ -7,3 +7,18 @@
     color: #fff;
     max-width: 880px;
 }
+
+@media screen and (max-width: 1023px) {
+    .root {
+        width: 100%;
+        min-width: 720px;
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .root {
+        width: 100%;
+        min-width: 320px;
+    }
+}

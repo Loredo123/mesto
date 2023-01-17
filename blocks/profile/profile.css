@@ -1,8 +1,23 @@
 .profile {
-
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 30px;
+}
+
+@media screen and (max-width: 1023px) {
+    .profile {
+        max-width: 600px;
+        flex-direction: column;
+        margin: 40px auto 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile {
+        max-width: 282px;
+        margin-top: 42px;
+        gap: 0;
+    }
 }

@@ -2,8 +2,18 @@
     width: 32px;
     height: 32px;
     background: url('../../../images/Close_Icon.svg') no-repeat center;
+    background-size: cover;
     border: none;
     position: absolute;
     top: -40px;
     right: -40px;
+}
+
+@media screen and (max-width: 1023px) {
+    .popup__button-exit {
+        width: 20px;
+        height: 20px;
+        top: -36px;
+        right: 0;
+    }
 }

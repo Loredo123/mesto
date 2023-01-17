@@ -4,3 +4,14 @@
     grid-template-columns: max-content 24px;
     gap: 16px 18px;
 }
+
+
+
+@media screen and (max-width: 767px) {
+    .profile__info {
+        margin-top: 26px;
+        grid-template-columns: max-content 18px;
+        gap: 10px 14px;
+
+    }
+}

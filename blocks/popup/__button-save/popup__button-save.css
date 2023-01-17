@@ -9,3 +9,12 @@
 .popup__button-save:hover {
     opacity: 0.8;
 }
+
+
+@media screen and (max-width: 1023px) {
+    .popup__button-save {
+        width: 238px;
+        height: 46px;
+
+    }
+}

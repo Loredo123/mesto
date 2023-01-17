@@ -4,4 +4,20 @@
     font-weight: 400;
     line-height: 22px;
     grid-column: span 2;
+    max-width: 550px;
+}
+
+@media screen and (max-width: 1023px) {
+    .profile__comment {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile__comment {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17px;
+        max-width: 260px;
+    }
 }
