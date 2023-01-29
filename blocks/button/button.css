@@ -3,9 +3,11 @@
     box-sizing: border-box;
     cursor: pointer;
     border: none;
-    transition: opacity linear 0.6s;
+    transition: opacity linear 0.3s;
 }
 
-button:hover {
-    opacity: 0.6;
+@media screen and (min-width: 1024px) {
+    .button:hover {
+        opacity: 0.6;
+    }
 }
