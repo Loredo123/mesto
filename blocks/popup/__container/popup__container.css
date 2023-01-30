@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     width: 430px;
-    min-height: 330px;
     background-color: #fff;
     z-index: 1;
     box-sizing: border-box;
@@ -16,6 +15,5 @@
     .popup__container {
         padding: 25px 22px;
         width: 282px;
-        min-height: 322px;
     }
 }
