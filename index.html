@@ -12,7 +12,7 @@
     <header class="header">
         <img class="header__logo" src="./images/Vector.svg" alt="Логотип проекта 'Место'">
     </header>
-    <section class="popup">
+    <div class="popup">
         <div class="popup__container">
             <form name="form-edit" class="form">
                 <h2 class="form__title">Редактировать профиль</h2>
@@ -22,7 +22,27 @@
             </form>
             <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
         </div>
-    </section>
+    </div>
+    <div class="popup">
+        <div class="popup__container">
+            <form name="form-add" class="form">
+                <h2 class="form__title">Новое место</h2>
+                <input name="place-name" type="text" placeholder="Название" class="form__input">
+                <input name="place-url" type="text" placeholder="Ссылка на картинку" class="form__input">
+                <button type="submit" class="form__button-save button">Сохранить</button>
+            </form>
+            <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
+        </div>
+    </div>
+    <div class="popup">
+        <template class="popup__template-image">
+            <figure class="popup__image-container">
+                <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
+                <img class="popup__image">
+                <figcaption class="popup__image-caption"></figcaption>
+            </figure>
+        </template>
+    </div>
     <main class="content">
         <section class="profile">
             <img src="./images/avatar.png" alt="Аватар профиля" class="profile__avatar">
@@ -36,65 +56,23 @@
         </section>
         <section class="gallery">
             <ul class="gallery__grid">
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/karachaevsk.png" alt="Фото из Карачаевска" class="card__image">
-                        <div class="card__info overflow-text-content">
-                            <h2 class="card__place-name overflow-text-content">Карачаевск</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/elbrus.png" alt="Фото горы Эльбрус" class="card__image">
-                        <div class="card__info">
-                            <h2 class="card__place-name overflow-text-content">Гора Эльбрус</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/dombai.png" alt="Фото Домбай" class="card__image">
-                        <div class="card__info">
-                            <h2 class="card__place-name overflow-text-content">Домбай</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/elbrus.png" alt="Фото горы Эльбрус" class="card__image">
-                        <div class="card__info">
-                            <h2 class="card__place-name overflow-text-content">Гора Эльбрус</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/dombai.png" alt="Фото Домбай" class="card__image">
-                        <div class="card__info">
-                            <h2 class="card__place-name overflow-text-content">Домбай</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
-                <li class="gallery__item">
-                    <article class="card">
-                        <img src="./images/karachaevsk.png" alt="Фото из Карачаево-Черкессии" class="card__image">
-                        <div class="card__info">
-                            <h2 class="card__place-name overflow-text-content">Карачаево-Черкессия</h2>
-                            <button type="button" aria-label="Лайк" class="card__like button"></button>
-                        </div>
-                    </article>
-                </li>
+                <template class="gallery__template-card">
+                    <li class="gallery__item">
+                        <article class="card">
+                            <img class="card__image">
+                            <div class="card__info overflow-text-content">
+                                <h2 class="card__place-name overflow-text-content"></h2>
+                                <button type="button" aria-label="Лайк" class="card__like button"></button>
+                            </div>
+                            <img src="./images/trash.svg" alt="Удалить картинку" class="card__remove button">
+                        </article>
+                    </li>
+                </template>
             </ul>
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__copyright">&commat; 2020 Mesto Russia</p>
+        <p class="footer__copyright">&commat; 2023 Mesto Russia</p>
     </footer>
     <script src="./scripts/script.js"></script>
 </body>
