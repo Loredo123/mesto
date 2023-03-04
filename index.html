@@ -14,10 +14,19 @@
     </header>
     <div class="popup popup_profile">
         <div class="popup__container">
-            <form name="form-edit" class="form">
+            <form name="form-edit" class="form" novalidate autocomplete="off">
                 <h2 class="form__title">Редактировать профиль</h2>
-                <input name="profile-name" type="text" class="form__input">
-                <input name="profile-comment" type="text" class="form__input">
+
+                <input name="profile-name" id="name-input" minlength="2" maxlength="40" type="text" class="form__input"
+                    required>
+                <span class="form__error-message name-input-error"></span>
+
+
+                <input name="profile-comment" id="comment-input" minlength="2" maxlength="200" type="text"
+                    class="form__input" required>
+                <span class="form__error-message comment-input-error"></span>
+
+
                 <button type="submit" class="form__button-save form__button-save_profile button">Сохранить</button>
             </form>
             <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
@@ -25,10 +34,14 @@
     </div>
     <div class="popup popup_card">
         <div class="popup__container">
-            <form name="form-add" class="form">
+            <form name="form-add" class="form" novalidate autocomplete="off">
                 <h2 class="form__title">Новое место</h2>
-                <input name="place-name" type="text" placeholder="Название" class="form__input">
-                <input name="place-url" type="text" placeholder="Ссылка на картинку" class="form__input">
+                <input name="place-name" id="place-input" minlength="2" maxlength="30" type="text"
+                    placeholder="Название" class="form__input" required>
+                <span class="form__error-message place-input-error"></span>
+                <input name="place-url" id="url-input" type="url" placeholder="Ссылка на картинку" class="form__input"
+                    required>
+                <span class="form__error-message url-input-error"></span>
                 <button type="submit" class="form__button-save form__button-save_card button">Сохранить</button>
             </form>
             <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
@@ -74,6 +87,7 @@
     </footer>
     <script src="./scripts/constants.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
