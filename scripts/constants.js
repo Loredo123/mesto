@@ -1,11 +1,13 @@
 
 const nameInput = document.querySelector('.form__input[name="profile-name"]');
 const commentInput = document.querySelector('.form__input[name="profile-comment"]');
+const formAddCard = document.querySelector('form[name="form-add"]');
+const formEditProfile = document.querySelector('form[name="form-edit"]');
 const exitButtons = document.querySelectorAll('.popup__button-exit');
 const editButton = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileComment = document.querySelector('.profile__comment');
-// const popups = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
 const popupCard = document.querySelector('.popup_card');
 const popupImage = document.querySelector('.popup_fullscreen-image');
