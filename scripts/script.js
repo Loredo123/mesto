@@ -1,5 +1,50 @@
+import { Card } from './Card.js';
 
+const nameInput = document.querySelector('.form__input[name="profile-name"]');
+const commentInput = document.querySelector('.form__input[name="profile-comment"]');
+const formAddCard = document.querySelector('form[name="form-add"]');
+const formEditProfile = document.querySelector('form[name="form-edit"]');
+const exitButtons = document.querySelectorAll('.popup__button-exit');
+const editButton = document.querySelector('.profile__edit-button');
+const profileName = document.querySelector('.profile__name');
+const profileComment = document.querySelector('.profile__comment');
+const popups = document.querySelectorAll('.popup');
+const popupProfile = document.querySelector('.popup_profile');
+const popupCard = document.querySelector('.popup_card');
+const popupImage = document.querySelector('.popup_fullscreen-image');
+const profileButtonSave = document.querySelector('.form__button-save_profile');
+const cardButtonSave = document.querySelector('.form__button-save_card');
+const addButton = document.querySelector('.profile__add-button');
+const placeNameInput = document.querySelector('.form__input[name="place-name"]');
+const linkInput = document.querySelector('.form__input[name="place-url"]');
+const templateCard = document.querySelector('.gallery__template-card');
 
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
 //Функция открытия попапа
 function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -30,42 +75,13 @@ function handleFormProfileSubmit(evt) {
 //Функция создает и добавляет новую карточку на страницу, после чего очищает поля формы и закрывает попап
 function handleFormCardSubmit(evt) {
     evt.preventDefault();
-    addCard(createCard(placeNameInput.value, linkInput.value));
+    const card = new Card(placeNameInput.value, linkInput.value, '.gallery__template-card');
+    card.addCard();
     formAddCard.reset();
     closePopup(popupCard);
 }
-//Функция для переключения состояния кнопки лайка
-function addLikeHandler(event) {
-    event.target.classList.toggle('card__like_active');
-};
-//Функция удаления карточки со страницы
-function removeCardHandler(event) {
-    event.target.closest('.gallery__item').remove();
-};
-//Функция создания карточки
-function createCard(name, link) {
-    const cardItem = templateCard.content.cloneNode(true);
-    const likeItem = cardItem.querySelector('.card__like');
-    const trashItem = cardItem.querySelector('.card__remove');
-    const imageItem = cardItem.querySelector('.card__image');
-    const placeName = cardItem.querySelector('.card__place-name');
-    placeName.textContent = name;
-    imageItem.src = link;
-    imageItem.alt = `На фото ${name}`;
-    imageItem.addEventListener('click', () => {
-        fullscreenImage.src = imageItem.src;
-        fullscreenImage.alt = imageItem.alt;
-        fullscreenImageCaption.textContent = placeName.textContent;
-        openPopup(popupImage)
-    });
-    likeItem.addEventListener('click', addLikeHandler);
-    trashItem.addEventListener('click', removeCardHandler);
-    return cardItem;
-};
-//Функция добавления карточки на страницу
-function addCard(card) {
-    gallery.prepend(card);
-};
+
+
 //Вешаем слушатели событий на формы
 formAddCard.addEventListener('submit', handleFormCardSubmit);
 formEditProfile.addEventListener('submit', handleFormProfileSubmit);
@@ -92,7 +108,8 @@ popups.forEach((popup) => {
 
 //Добавляем на страницу карточки "из коробки"
 initialCards.forEach((elem) => {
-    addCard(createCard(elem.name, elem.link));
+    const card = new Card(elem.name, elem.link, '.gallery__template-card');
+    card.addCard();
 });
 
 
