@@ -1,15 +1,16 @@
-const gallery = document.querySelector('.gallery__grid');
+//переменные
+export const gallery = document.querySelector('.gallery__grid');
 const fullscreenImage = document.querySelector('.popup__image');
 const fullscreenImageCaption = document.querySelector('.popup__image-caption');
-const popupImage = document.querySelector('.popup_fullscreen-image');
-
+// экуспортируемый класс 
 export class Card {
+    // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
     constructor(name, image, templateSelector) {
         this._name = name;
         this._image = image;
         this._templateSelector = templateSelector;
     }
-
+    // возвращает пустой шаблон для карточки
     _getTemplate() {
         this._element = document
             .querySelector(this._templateSelector)
@@ -18,7 +19,7 @@ export class Card {
 
         return this._element;
     }
-
+    // создает и возвращает готовую карточку
     _createCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
@@ -28,46 +29,38 @@ export class Card {
 
         return this._element;
     }
-
+    // вешает на карточку слушатели
     _setEventListeners() {
         this._element.querySelector('.card__remove').addEventListener('click', (event) => {
             this._handlerRemoveCard(event);
-            console.log('тык');
+
         });
 
         this._element.querySelector('.card__like').addEventListener('click', (event) => {
-            this._handlerAddLike(event);
+            this._handlerLikeState(event);
         })
 
         this._element.querySelector('.card__image').addEventListener('click', () => {
             this._handlerOpenImage();
         })
     }
-
+    // для popupImage 
     _handlerOpenImage() {
         fullscreenImage.src = this._image;
         fullscreenImage.alt = `На фото - ${this._name}`;
         fullscreenImageCaption.textContent = this._name;
-        popupImage.classList.add('popup_opened');
-        document.addEventListener('keydown', this._handlerCloseKey);
     }
 
-    _handlerCloseKey(event) {
-        if (event.key === 'Escape') {
-            popupImage.classList.remove('popup_opened');
-            document.removeEventListener('keydown', this._handlerCloseKey);
-        }
-    }
 
-    _handlerAddLike(event) {
+    // меняет состояние лайка
+    _handlerLikeState(event) {
         event.target.classList.toggle('card__like_active');
     }
-
+    // удаляет карточку
     _handlerRemoveCard(event) {
-        console.log(event.target);
         event.target.closest('.gallery__item').remove();
     }
-
+    // публичный метод, который добавляет карточку на страницу
     addCard() {
         gallery.prepend(this._createCard());
     }

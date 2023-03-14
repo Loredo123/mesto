@@ -1,10 +1,12 @@
-import { Card } from './Card.js';
-
+// Импорт модулей
+import { Card, gallery } from './Card.js';
+import Validator from './FormVatidator.js';
+//объявление необходимых переменных и объектов
+const forms = document.querySelectorAll('.form');
 const nameInput = document.querySelector('.form__input[name="profile-name"]');
 const commentInput = document.querySelector('.form__input[name="profile-comment"]');
 const formAddCard = document.querySelector('form[name="form-add"]');
 const formEditProfile = document.querySelector('form[name="form-edit"]');
-const exitButtons = document.querySelectorAll('.popup__button-exit');
 const editButton = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileComment = document.querySelector('.profile__comment');
@@ -12,13 +14,18 @@ const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
 const popupCard = document.querySelector('.popup_card');
 const popupImage = document.querySelector('.popup_fullscreen-image');
-const profileButtonSave = document.querySelector('.form__button-save_profile');
-const cardButtonSave = document.querySelector('.form__button-save_card');
 const addButton = document.querySelector('.profile__add-button');
 const placeNameInput = document.querySelector('.form__input[name="place-name"]');
 const linkInput = document.querySelector('.form__input[name="place-url"]');
-const templateCard = document.querySelector('.gallery__template-card');
-
+// объект селекторов и классов для валидации
+const validationsConfig = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    buttonSubmit: '.form__button-save',
+    inactiveButtonClass: 'form__button-save_disabled',
+    activeInputError: 'form__inpute-error_active'
+};
+//карточки из коробки
 const initialCards = [
     {
         name: 'Архыз',
@@ -63,8 +70,6 @@ function closeKeyState(event) {
     }
 }
 
-
-
 //Функция сохраняет данные, введение в форму, в профиль и закрывает модальное окно
 function handleFormProfileSubmit(evt) {
     evt.preventDefault();
@@ -86,7 +91,7 @@ function handleFormCardSubmit(evt) {
 formAddCard.addEventListener('submit', handleFormCardSubmit);
 formEditProfile.addEventListener('submit', handleFormProfileSubmit);
 
-//Вешаем слушатели на кнопки открытия попапов
+//Вешаем слушатели для открытия попапов
 editButton.addEventListener('click', () => {
     nameInput.value = profileName.textContent;
     commentInput.value = profileComment.textContent;
@@ -95,6 +100,13 @@ editButton.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     openPopup(popupCard);
 });
+
+gallery.addEventListener('click', (event) => {
+    if (event.target.classList.contains('card__image')) {
+        openPopup(popupImage);
+
+    }
+})
 
 
 //Для каждого попапа добавляем слушатель, который вызывает closePopup, если клик произошел на кнопке закрытия или на самом попапе
@@ -111,6 +123,11 @@ initialCards.forEach((elem) => {
     const card = new Card(elem.name, elem.link, '.gallery__template-card');
     card.addCard();
 });
+//Для каждой формы создает экземпляр класса FormValidator и вызывает его публичный метод, который включает валидацию
+forms.forEach((form) => {
+    const formValidity = new Validator(validationsConfig, form);
+    formValidity.enableValidation();
+})
 
 
 
