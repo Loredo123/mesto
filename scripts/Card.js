@@ -1,31 +1,31 @@
-//переменные
-export const gallery = document.querySelector('.gallery__grid');
-const fullscreenImage = document.querySelector('.popup__image');
+
 // экуспортируемый класс 
 export class Card {
     // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
-    constructor(name, image, templateSelector) {
+    constructor(name, image, templateSelector, handleCardClick) {
         this._name = name;
         this._image = image;
         this._templateSelector = templateSelector;
+        this._handlerCardClick = handleCardClick;
     }
     // возвращает пустой шаблон для карточки
     _getTemplate() {
-        this._element = document
+        this._cardElement = document
             .querySelector(this._templateSelector)
             .content
             .cloneNode(true);
 
-        return this._element;
+        return this._cardElement;
     }
+
     // создает и возвращает готовую карточку
-    _createCard() {
+    createCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
+        this._cardImage = this._element.querySelector('.card__image');
         this._element.querySelector('.card__place-name').textContent = this._name;
-        this._element.querySelector('.card__image').src = this._image;
-        this._element.querySelector('.card__image').alt = `На фото - ${this._name}`;
-
+        this._cardImage.src = this._image;
+        this._cardImage.alt = `На фото - ${this._name}`;
         return this._element;
     }
     // вешает на карточку слушатели
@@ -40,14 +40,8 @@ export class Card {
         })
 
         this._element.querySelector('.card__image').addEventListener('click', () => {
-            this._handlerOpenImage();
+            this._handlerCardClick(this._name, this._image);
         })
-    }
-    // для popupImage 
-    _handlerOpenImage() {
-        fullscreenImage.src = this._image;
-        fullscreenImage.alt = `На фото - ${this._name}`;
-        fullscreenImageCaption.textContent = this._name;
     }
 
 
@@ -56,11 +50,8 @@ export class Card {
         event.target.classList.toggle('card__like_active');
     }
     // удаляет карточку
+    // this._element является documentFragment'ом и у него нету метода remove()
     _handlerRemoveCard(event) {
         event.target.closest('.gallery__item').remove();
-    }
-    // публичный метод, который добавляет карточку на страницу
-    addCard() {
-        gallery.prepend(this._createCard());
     }
 }

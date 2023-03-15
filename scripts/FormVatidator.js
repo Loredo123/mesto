@@ -1,7 +1,7 @@
 // Создается экспортируемый класс 
 export default class FormValidator {
     //конструктор принимает объект настроек и валидируемую форму
-    constructor(options, formElement) {
+    constructor(formElement, options) {
         this._options = options;
 
         this._formElement = formElement;
@@ -12,27 +12,24 @@ export default class FormValidator {
     }
     // вызывает методы класса для формы и вешает слушатели на инпуты
     _setEventListeners() {
-        const submitElement = this._formElement.querySelector(this._options.buttonSubmit);
-        const inputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-        this._toggleButtonState(inputs, submitElement)
+        this._submitElement = this._formElement.querySelector(this._options.buttonSubmit);
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+        this._toggleButtonState()
         this._formElement.addEventListener('reset', () => {
-            this._handlerResetForm(inputs, submitElement);
+            this._handlerResetForm();
         });
-        if (this._formElement.name === 'form-edit') {
-            this._enableButton(submitElement);
-        }
-        inputs.forEach(inputElement => {
+        this._inputList.forEach(inputElement => {
             inputElement.addEventListener('input', () => {
                 this._checkInput(inputElement);
-                this._toggleButtonState(inputs, submitElement);
+                this._toggleButtonState();
             })
         })
     }
     // проверяет инпут на валидность
     _checkInput(inputElement) {
-        const isValid = inputElement.validity.valid;
+        this._isValid = inputElement.validity.valid;
         const errorElement = document.querySelector(`.${inputElement.id}-error`);
-        if (isValid) {
+        if (this._isValid) {
             this._hideError(errorElement);
         } else {
             this._showError(errorElement, inputElement.validationMessage);
@@ -49,29 +46,38 @@ export default class FormValidator {
         errorElement.classList.add(this._options.activeInputError);
     }
     // переключатель состояния кнопки сабмита
-    _toggleButtonState(inputs, submitElement) {
-        const formIsValid = inputs.every((inputElement) => inputElement.validity.valid);
+    _toggleButtonState() {
+        const formIsValid = this._inputList.every((inputElement) => inputElement.validity.valid);
         if (formIsValid) {
-            this._enableButton(submitElement);
+            this._enableButton();
         } else {
-            this._disableButton(submitElement);
+            this._disableButton();
         }
     }
     // активирует кнопку
-    _enableButton(submitElement) {
-        submitElement.removeAttribute('disabled');
-        submitElement.classList.remove(this._options.inactiveButtonClass);
+    _enableButton() {
+        this._submitElement.removeAttribute('disabled');
+        this._submitElement.classList.remove(this._options.inactiveButtonClass);
     }
     // деактивирует кнопку
-    _disableButton(submitElement) {
-        submitElement.setAttribute('disabled', 'true');
-        submitElement.classList.add(this._options.inactiveButtonClass);
+    _disableButton() {
+        this._submitElement.setAttribute('disabled', 'true');
+        this._submitElement.classList.add(this._options.inactiveButtonClass);
     }
     // для проверки формы после нажатия на кнопку сабмита и срабатывания события reset
-    _handlerResetForm(inputs, submitElement) {
+    _handlerResetForm() {
         setTimeout(() => {
-            this._toggleButtonState(inputs, submitElement)
+            this._toggleButtonState()
         }, 0);
+    }
+
+    resetValidation() {
+        this._toggleButtonState();
+
+        this._inputList.forEach((inputElement) => {
+            this._checkInput(inputElement);
+        });
+
     }
 }
 
