@@ -1,7 +1,6 @@
 //переменные
 export const gallery = document.querySelector('.gallery__grid');
 const fullscreenImage = document.querySelector('.popup__image');
-const fullscreenImageCaption = document.querySelector('.popup__image-caption');
 // экуспортируемый класс 
 export class Card {
     // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
