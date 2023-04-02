@@ -1,6 +1,7 @@
 // Импорт модулей
 import { Card } from './Card.js';
 import Validator from './FormVatidator.js';
+import Popup from './Popup.js';
 //объявление необходимых переменных и объектов
 const nameInput = document.querySelector('.form__input[name="profile-name"]');
 const commentInput = document.querySelector('.form__input[name="profile-comment"]');
@@ -11,7 +12,7 @@ const profileName = document.querySelector('.profile__name');
 const profileComment = document.querySelector('.profile__comment');
 const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
-const popupCard = document.querySelector('.popup_card');
+// const popupCard = document.querySelector('.popup_card');
 const popupImage = document.querySelector('.popup_fullscreen-image');
 const addButton = document.querySelector('.profile__add-button');
 const placeNameInput = document.querySelector('.form__input[name="place-name"]');
@@ -57,24 +58,24 @@ const initialCards = [
     }
 ];
 //Функция открытия попапа
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeKeyState);
-};
-//Функция закрытия попапа
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeKeyState);
-};
-//Функция для закрытия модального окна при нажатии на esc
-function closeKeyState(event) {
+// function openPopup(popup) {
+//     popup.classList.add('popup_opened');
+//     document.addEventListener('keydown', closeKeyState);
+// };
+// //Функция закрытия попапа
+// function closePopup(popup) {
+//     popup.classList.remove('popup_opened');
+//     document.removeEventListener('keydown', closeKeyState);
+// };
+// //Функция для закрытия модального окна при нажатии на esc
+// function closeKeyState(event) {
 
-    if (event.key === 'Escape') {
-        const currentPopup = document.querySelector('.popup_opened');
-        closePopup(currentPopup);
-    }
-}
-
+//     if (event.key === 'Escape') {
+//         const currentPopup = document.querySelector('.popup_opened');
+//         closePopup(currentPopup);
+//     }
+// }
+export const popupCard = new Popup('.popup_card');
 //Функция сохраняет данные, введение в форму, в профиль и закрывает модальное окно
 function handleFormProfileSubmit(evt) {
     evt.preventDefault();
@@ -90,7 +91,6 @@ function handleFormCardSubmit(evt) {
     closePopup(popupCard);
 }
 
-
 //Вешаем слушатели событий на формы
 formAddCard.addEventListener('submit', handleFormCardSubmit);
 formEditProfile.addEventListener('submit', handleFormProfileSubmit);
@@ -100,21 +100,24 @@ editButton.addEventListener('click', () => {
     nameInput.value = profileName.textContent;
     commentInput.value = profileComment.textContent;
 
-    openPopup(popupProfile);
+    (popupProfile);
     formValidators['form-edit'].resetValidation();
 });
 addButton.addEventListener('click', () => {
-    openPopup(popupCard);
+    popupCard.open();
+    popupCard.setEventListeners();
+
+
 });
 
 //Для каждого попапа добавляем слушатель, который вызывает closePopup, если клик произошел на кнопке закрытия или на самом попапе
-popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-exit')) {
-            closePopup(evt.currentTarget);
-        }
-    });
-});
+// popups.forEach((popup) => {
+//     popup.addEventListener('click', (evt) => {
+//         if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-exit')) {
+//             closePopup(evt.currentTarget);
+//         }
+//     });
+// });
 
 //Добавляем на страницу карточки "из коробки"
 initialCards.forEach((elem) => {
