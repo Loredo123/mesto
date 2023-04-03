@@ -2,9 +2,9 @@
 // экуспортируемый класс 
 export class Card {
     // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
-    constructor(name, image, templateSelector, handleCardClick) {
-        this._name = name;
-        this._image = image;
+    constructor(data, templateSelector, handleCardClick) {
+        this._name = data.name;
+        this._image = data.image;
         this._templateSelector = templateSelector;
         this._handlerCardClick = handleCardClick;
     }

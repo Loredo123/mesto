@@ -2,6 +2,8 @@
 import { Card } from './Card.js';
 import Validator from './FormVatidator.js';
 import Popup from './Popup.js';
+import Section from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
 //объявление необходимых переменных и объектов
 const nameInput = document.querySelector('.form__input[name="profile-name"]');
 const commentInput = document.querySelector('.form__input[name="profile-comment"]');
@@ -11,17 +13,17 @@ const editButton = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileComment = document.querySelector('.profile__comment');
 const popups = document.querySelectorAll('.popup');
-const popupProfile = document.querySelector('.popup_profile');
+
 // const popupCard = document.querySelector('.popup_card');
-const popupImage = document.querySelector('.popup_fullscreen-image');
+
 const addButton = document.querySelector('.profile__add-button');
 const placeNameInput = document.querySelector('.form__input[name="place-name"]');
 const linkInput = document.querySelector('.form__input[name="place-url"]');
 //
 const gallery = document.querySelector('.gallery__grid');
 const formValidators = {}
-const fullscreenImage = document.querySelector('.popup__image');
-const fullscreenImageCaption = document.querySelector('.popup__image-caption');
+export const fullscreenImage = document.querySelector('.popup__image');
+export const fullscreenImageCaption = document.querySelector('.popup__image-caption');
 // объект селекторов и классов для валидации
 const validationsConfig = {
     formSelector: '.form',
@@ -75,7 +77,11 @@ const initialCards = [
 //         closePopup(currentPopup);
 //     }
 // }
-export const popupCard = new Popup('.popup_card');
+const popupCard = new Popup('.popup_card');
+const popupProfile = new Popup('.popup_profile');
+const popupImage = new PopupWithImage('.popup_fullscreen-image');
+console.log(popupImage.open);
+
 //Функция сохраняет данные, введение в форму, в профиль и закрывает модальное окно
 function handleFormProfileSubmit(evt) {
     evt.preventDefault();
@@ -86,7 +92,7 @@ function handleFormProfileSubmit(evt) {
 //Функция создает и добавляет новую карточку на страницу, после чего очищает поля формы и закрывает попап
 function handleFormCardSubmit(evt) {
     evt.preventDefault();
-    gallery.prepend(createCard({ name: placeNameInput.value, link: linkInput.value }, '.gallery__template-card', handleCardClick));
+    gallery.prepend(createCard({ name: placeNameInput.value, link: linkInput.value }, '.gallery__template-card', popupImage.open.bind(PopupWithImage)));
     formAddCard.reset();
     closePopup(popupCard);
 }
@@ -100,39 +106,24 @@ editButton.addEventListener('click', () => {
     nameInput.value = profileName.textContent;
     commentInput.value = profileComment.textContent;
 
-    (popupProfile);
+    popupProfile.open();
     formValidators['form-edit'].resetValidation();
 });
 addButton.addEventListener('click', () => {
     popupCard.open();
-    popupCard.setEventListeners();
+
 
 
 });
-
-//Для каждого попапа добавляем слушатель, который вызывает closePopup, если клик произошел на кнопке закрытия или на самом попапе
-// popups.forEach((popup) => {
-//     popup.addEventListener('click', (evt) => {
-//         if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-exit')) {
-//             closePopup(evt.currentTarget);
-//         }
-//     });
-// });
 
 //Добавляем на страницу карточки "из коробки"
 initialCards.forEach((elem) => {
-    gallery.prepend(createCard(elem, '.gallery__template-card', handleCardClick));
+    gallery.prepend(createCard(elem, '.gallery__template-card', popupImage.open.bind(popupImage)));
 });
-// функция открытия попапа с картинкой(передается в конструктор класса Card)
-function handleCardClick(name, image) {
-    fullscreenImage.src = image;
-    fullscreenImage.alt = `На фото - ${name}`;
-    fullscreenImageCaption.textContent = name;
-    openPopup(popupImage);
-}
+
 // функция создания карточки - возвращает готовую карточку
 function createCard(elem) {
-    const card = new Card(elem.name, elem.link, '.gallery__template-card', handleCardClick);
+    const card = new Card({ name: elem.name, image: elem.link }, '.gallery__template-card', popupImage.open.bind(popupImage));
     const cardElement = card.createCard();
 
     return cardElement;
