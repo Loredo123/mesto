@@ -4,7 +4,7 @@ export class Card {
     // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
     constructor(data, templateSelector, handleCardClick) {
         this._name = data.name;
-        this._image = data.image;
+        this._image = data.link;
         this._templateSelector = templateSelector;
         this._handlerCardClick = handleCardClick;
     }
@@ -50,7 +50,7 @@ export class Card {
         event.target.classList.toggle('card__like_active');
     }
     // удаляет карточку
-    // this._element является documentFragment'ом и у него нету метода remove()
+
     _handlerRemoveCard(event) {
         event.target.closest('.gallery__item').remove();
     }

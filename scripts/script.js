@@ -59,42 +59,35 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-//Функция открытия попапа
-// function openPopup(popup) {
-//     popup.classList.add('popup_opened');
-//     document.addEventListener('keydown', closeKeyState);
-// };
-// //Функция закрытия попапа
-// function closePopup(popup) {
-//     popup.classList.remove('popup_opened');
-//     document.removeEventListener('keydown', closeKeyState);
-// };
-// //Функция для закрытия модального окна при нажатии на esc
-// function closeKeyState(event) {
 
-//     if (event.key === 'Escape') {
-//         const currentPopup = document.querySelector('.popup_opened');
-//         closePopup(currentPopup);
-//     }
-// }
 const popupCard = new Popup('.popup_card');
 const popupProfile = new Popup('.popup_profile');
 const popupImage = new PopupWithImage('.popup_fullscreen-image');
-console.log(popupImage.open);
+const gallerySection = new Section({
+    items: initialCards, renderer: (item) => {
+        const card = new Card(item, '.gallery__template-card', popupImage.open.bind(popupImage));
+
+        const cardElement = card.createCard();
+
+        gallerySection.addItem(cardElement);
+    }
+}, '.gallery__grid');
+gallerySection.renderItems();
+
 
 //Функция сохраняет данные, введение в форму, в профиль и закрывает модальное окно
 function handleFormProfileSubmit(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileComment.textContent = commentInput.value;
-    closePopup(popupProfile);
 }
 //Функция создает и добавляет новую карточку на страницу, после чего очищает поля формы и закрывает попап
 function handleFormCardSubmit(evt) {
     evt.preventDefault();
-    gallery.prepend(createCard({ name: placeNameInput.value, link: linkInput.value }, '.gallery__template-card', popupImage.open.bind(PopupWithImage)));
+    const card = new Card({ name: placeNameInput.value, link: linkInput.value }, '.gallery__template-card', popupImage.open.bind(popupImage));
+    gallerySection.addItem(card.createCard());
     formAddCard.reset();
-    closePopup(popupCard);
+    popupCard.close();
 }
 
 //Вешаем слушатели событий на формы
@@ -115,20 +108,6 @@ addButton.addEventListener('click', () => {
 
 
 });
-
-//Добавляем на страницу карточки "из коробки"
-initialCards.forEach((elem) => {
-    gallery.prepend(createCard(elem, '.gallery__template-card', popupImage.open.bind(popupImage)));
-});
-
-// функция создания карточки - возвращает готовую карточку
-function createCard(elem) {
-    const card = new Card({ name: elem.name, image: elem.link }, '.gallery__template-card', popupImage.open.bind(popupImage));
-    const cardElement = card.createCard();
-
-    return cardElement;
-}
-
 
 
 // Включение валидации
