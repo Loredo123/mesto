@@ -5,61 +5,9 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-//объявление необходимых переменных и объектов
-const nameInput = document.querySelector('.form__input[name="profile-name"]');
-const commentInput = document.querySelector('.form__input[name="profile-comment"]');
-// const formAddCard = document.querySelector('form[name="form-add"]');
-// const formEditProfile = document.querySelector('form[name="form-edit"]');
-const editButton = document.querySelector('.profile__edit-button');
-const profileName = document.querySelector('.profile__name');
-const profileComment = document.querySelector('.profile__comment');
-const popups = document.querySelectorAll('.popup');
+import { initialCards, validationsConfig, editButton, addButton, formValidators, placeNameInput, linkInput, nameInput, commentInput } from '../utils/constants.js'
 
-// const popupCard = document.querySelector('.popup_card');
-
-const addButton = document.querySelector('.profile__add-button');
-const placeNameInput = document.querySelector('.form__input[name="place-name"]');
-const linkInput = document.querySelector('.form__input[name="place-url"]');
-//
-const gallery = document.querySelector('.gallery__grid');
-const formValidators = {}
-export const fullscreenImage = document.querySelector('.popup__image');
-export const fullscreenImageCaption = document.querySelector('.popup__image-caption');
-// объект селекторов и классов для валидации
-const validationsConfig = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    buttonSubmit: '.form__button-save',
-    inactiveButtonClass: 'form__button-save_disabled',
-    activeInputError: 'form__inpute-error_active'
-};
-//карточки из коробки
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+//создание экземпляров классов
 const userInfo = new UserInfo({ nameSelector: '.profile__name', infoSelector: '.profile__comment' });
 const popupCard = new PopupWithForm('.popup_card', (evt) => {
     evt.preventDefault();
@@ -82,9 +30,10 @@ const gallerySection = new Section({
         gallerySection.addItem(cardElement);
     }
 }, '.gallery__grid');
+//отрисовка карточек из коробки
 gallerySection.renderItems();
 
-//Вешаем слушатели для открытия попапов
+//слушатели для открытия попапов
 editButton.addEventListener('click', () => {
     const data = userInfo.getUserInfo();
     nameInput.value = data.name;
