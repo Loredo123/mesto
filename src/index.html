@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
     <title>Mesto</title>
 </head>
 
 <body class="root">
     <header class="header">
-        <img class="header__logo" src="./images/Vector.svg" alt="Логотип проекта 'Место'">
+        <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Логотип проекта 'Место'">
     </header>
     <div class="popup popup_profile">
         <div class="popup__container">
@@ -56,7 +56,7 @@
     </div>
     <main class="content">
         <section class="profile">
-            <img src="./images/avatar.png" alt="Аватар профиля" class="profile__avatar">
+            <img src="<%=require('./images/avatar.png')%>" alt="Аватар профиля" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__name overflow-text-content">Жак-Ив Кусто</h1>
                 <button aria-label="Редактировать" type="button" class="profile__edit-button button"></button>
@@ -75,7 +75,8 @@
                                 <h2 class="card__place-name overflow-text-content"></h2>
                                 <button type="button" aria-label="Лайк" class="card__like button"></button>
                             </div>
-                            <img src="./images/trash.svg" alt="Удалить картинку" class="card__remove button">
+                            <img src="<%=require('./images/trash.svg')%>" alt="Удалить картинку"
+                                class="card__remove button">
                         </article>
                     </li>
                 </template>
@@ -85,14 +86,14 @@
     <footer class="footer">
         <p class="footer__copyright">&commat; 2023 Mesto Russia</p>
     </footer>
-    <script type="module" src="./components/Card.js"></script>
+    <!-- <script type="module" src="./components/Card.js"></script>
     <script type="module" src="./pages/script.js"></script>
     <script type="module" src="./components/FormVatidator.js"></script>
     <script type="module" src="./components/Popup.js"></script>
     <script type="module" src="./components/PopupWithForm.js"></script>
     <script type="module" src="./components/PopupWithImage.js"></script>
     <script type="module" src="./components/Section.js"></script>
-    <script type="module" src="./components/UserInfo.js"></script>
+    <script type="module" src="./components/UserInfo.js"></script> -->
 </body>
 
 </html>
