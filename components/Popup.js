@@ -3,7 +3,7 @@
 export default class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
-
+        this._form = this._popup.querySelector('.form');
     }
 
 

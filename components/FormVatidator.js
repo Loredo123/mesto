@@ -79,5 +79,12 @@ export default class FormValidator {
         });
 
     }
+
+    clearErrors() {
+        const errors = Array.from(this._formElement.querySelectorAll('.form__error-message'));
+        errors.forEach((error) => {
+            this._hideError(error);
+        })
+    }
 }
 

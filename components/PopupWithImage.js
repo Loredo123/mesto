@@ -1,5 +1,6 @@
 import Popup from './Popup.js';
-import { fullscreenImage, fullscreenImageCaption } from './script.js'
+
+import { fullscreenImage, fullscreenImageCaption } from '../pages/script.js'
 
 export default class PopupWithImage extends Popup {
 
