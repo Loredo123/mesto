@@ -1,14 +1,12 @@
 
 export const nameInput = document.querySelector('.form__input[name="profile-name"]');
 export const commentInput = document.querySelector('.form__input[name="profile-comment"]');
-export const editButton = document.querySelector('.profile__edit-button');
-export const addButton = document.querySelector('.profile__add-button');
-export const placeNameInput = document.querySelector('.form__input[name="place-name"]');
-export const linkInput = document.querySelector('.form__input[name="place-url"]');
+export const buttonEditProfile = document.querySelector('.profile__edit-button');
+export const buttonAddCard = document.querySelector('.profile__add-button');
+
 
 export const formValidators = {}
-export const fullscreenImage = document.querySelector('.popup__image');
-export const fullscreenImageCaption = document.querySelector('.popup__image-caption');
+
 // объект селекторов и классов для валидации
 export const validationsConfig = {
     formSelector: '.form',

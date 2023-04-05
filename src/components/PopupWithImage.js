@@ -1,14 +1,20 @@
 import Popup from './Popup.js';
 
-import { fullscreenImage, fullscreenImageCaption } from '../utils/constants.js'
+
 
 export default class PopupWithImage extends Popup {
-
+    constructor(popupSelector, imageSelector, nameSelector) {
+        super(popupSelector);
+        this._image = document.querySelector(imageSelector);
+        this._name = document.querySelector(nameSelector);
+    }
 
     open(name, image) {
         super.open();
-        fullscreenImage.src = image;
-        fullscreenImageCaption.textContent = name;
+        this._image.src = image;
+        this._image.alt = `На фото - ${name}`;
+        this._name.textContent = name;
+
     }
 
 

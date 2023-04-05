@@ -3,8 +3,10 @@ export default class FormValidator {
     //конструктор принимает объект настроек и валидируемую форму
     constructor(formElement, options) {
         this._options = options;
-
         this._formElement = formElement;
+        this._submitElement = this._formElement.querySelector(this._options.buttonSubmit);
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+        this._errors = Array.from(this._formElement.querySelectorAll('.form__error-message'));
     }
     // публичный метод включения валидации
     enableValidation() {
@@ -12,11 +14,10 @@ export default class FormValidator {
     }
     // вызывает методы класса для формы и вешает слушатели на инпуты
     _setEventListeners() {
-        this._submitElement = this._formElement.querySelector(this._options.buttonSubmit);
-        this._inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+
         this._toggleButtonState()
         this._formElement.addEventListener('reset', () => {
-            this._handlerResetForm();
+            this._handleResetForm();
         });
         this._inputList.forEach(inputElement => {
             inputElement.addEventListener('input', () => {
@@ -56,16 +57,16 @@ export default class FormValidator {
     }
     // активирует кнопку
     _enableButton() {
-        this._submitElement.removeAttribute('disabled');
+        this._submitElement.disabled = '';
         this._submitElement.classList.remove(this._options.inactiveButtonClass);
     }
     // деактивирует кнопку
     _disableButton() {
-        this._submitElement.setAttribute('disabled', 'true');
+        this._submitElement.disabled = 'true';
         this._submitElement.classList.add(this._options.inactiveButtonClass);
     }
     // для проверки формы после нажатия на кнопку сабмита и срабатывания события reset
-    _handlerResetForm() {
+    _handleResetForm() {
         setTimeout(() => {
             this._toggleButtonState()
         }, 0);
@@ -81,8 +82,8 @@ export default class FormValidator {
     }
 
     clearErrors() {
-        const errors = Array.from(this._formElement.querySelectorAll('.form__error-message'));
-        errors.forEach((error) => {
+
+        this._errors.forEach((error) => {
             this._hideError(error);
         })
     }

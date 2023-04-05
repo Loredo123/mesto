@@ -1,5 +1,5 @@
 
-// экуспортируемый класс 
+// экспортируемый класс 
 export class Card {
     // конструктор принимает название места, ссылку на картинку и селектор нужного template-элемента
     constructor(data, templateSelector, handleCardClick) {
@@ -12,17 +12,17 @@ export class Card {
     _getTemplate() {
         this._cardElement = document
             .querySelector(this._templateSelector)
-            .content
-            .cloneNode(true);
+            .content.firstElementChild.cloneNode(true)
 
-        return this._cardElement;
+        return (this._cardElement);
     }
 
     // создает и возвращает готовую карточку
     createCard() {
         this._element = this._getTemplate();
-        this._setEventListeners();
         this._cardImage = this._element.querySelector('.card__image');
+        this._cardLike = this._element.querySelector('.card__like');
+        this._setEventListeners();
         this._element.querySelector('.card__place-name').textContent = this._name;
         this._cardImage.src = this._image;
         this._cardImage.alt = `На фото - ${this._name}`;
@@ -30,28 +30,30 @@ export class Card {
     }
     // вешает на карточку слушатели
     _setEventListeners() {
-        this._element.querySelector('.card__remove').addEventListener('click', (event) => {
-            this._handlerRemoveCard(event);
+        this._element.querySelector('.card__remove').addEventListener('click', () => {
+            this._handleRemoveCard();
 
         });
 
-        this._element.querySelector('.card__like').addEventListener('click', (event) => {
-            this._handlerLikeState(event);
+        this._cardLike.addEventListener('click', () => {
+            this._handleLikeCard(this._cardLike);
         })
 
-        this._element.querySelector('.card__image').addEventListener('click', () => {
+        this._cardImage.addEventListener('click', () => {
             this._handlerCardClick(this._name, this._image);
         })
     }
 
 
     // меняет состояние лайка
-    _handlerLikeState(event) {
-        event.target.classList.toggle('card__like_active');
+    _handleLikeCard(buttonLike) {
+
+        buttonLike.classList.toggle('card__like_active');
     }
     // удаляет карточку
 
-    _handlerRemoveCard(event) {
-        event.target.closest('.gallery__item').remove();
+    _handleRemoveCard() {
+        this._element.remove();
+        this._element = null;
     }
 }
