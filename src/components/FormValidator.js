@@ -57,12 +57,12 @@ export default class FormValidator {
     }
     // активирует кнопку
     _enableButton() {
-        this._submitElement.disabled = '';
+        this._submitElement.disabled = false;
         this._submitElement.classList.remove(this._options.inactiveButtonClass);
     }
     // деактивирует кнопку
     _disableButton() {
-        this._submitElement.disabled = 'true';
+        this._submitElement.disabled = true;
         this._submitElement.classList.add(this._options.inactiveButtonClass);
     }
     // для проверки формы после нажатия на кнопку сабмита и срабатывания события reset

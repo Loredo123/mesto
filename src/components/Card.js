@@ -36,7 +36,7 @@ export class Card {
         });
 
         this._cardLike.addEventListener('click', () => {
-            this._handleLikeCard(this._cardLike);
+            this._handleLikeCard();
         })
 
         this._cardImage.addEventListener('click', () => {
@@ -46,9 +46,9 @@ export class Card {
 
 
     // меняет состояние лайка
-    _handleLikeCard(buttonLike) {
+    _handleLikeCard() {
 
-        buttonLike.classList.toggle('card__like_active');
+        this._cardLike.classList.toggle('card__like_active');
     }
     // удаляет карточку
 

@@ -11,12 +11,12 @@ import { initialCards, validationsConfig, buttonAddCard, buttonEditProfile, form
 
 function createCard(data) {
     const card = new Card(data, '.gallery__template-card', popupImage.open.bind(popupImage));
-    gallerySection.addItem(card.createCard());
+    return card.createCard();
 }
 //создание экземпляров классов
 const userInfo = new UserInfo({ nameSelector: '.profile__name', infoSelector: '.profile__comment' });
 const popupCard = new PopupWithForm('.popup_card', (inputValues) => {
-    createCard(inputValues);
+    gallerySection.addItem(createCard(inputValues));
     popupCard.close();
 });
 popupCard.setEventListeners();
@@ -32,7 +32,7 @@ popupImage.setEventListeners();
 
 const gallerySection = new Section({
     items: initialCards, renderer: (item) => {
-        createCard(item);
+        gallerySection.addItem(createCard(item));;
     }
 }, '.gallery__grid');
 //отрисовка карточек из коробки
