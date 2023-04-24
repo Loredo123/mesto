@@ -12,18 +12,26 @@
     <header class="header">
         <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Логотип проекта 'Место'">
     </header>
+    <!-- <div class="popup popup__avatar">
+        <div class="popup__container">
+            <form name="form-avatar" class="form" novalidate autocomplete="off">
+                <input name="avatar" class="form__input" id="url-avatar" type="url" placeholder="Ссылка на картинку"
+                    required>
+            </form>
+        </div>
+    </div> -->
     <div class="popup popup_profile">
         <div class="popup__container">
             <form name="form-edit" class="form" novalidate autocomplete="off">
                 <h2 class="form__title">Редактировать профиль</h2>
 
-                <input name="profile-name" id="name-input" minlength="2" maxlength="40" type="text" class="form__input"
+                <input name="name" id="name-input" minlength="2" maxlength="40" type="text" class="form__input"
                     required>
                 <span class="form__error-message name-input-error"></span>
 
 
-                <input name="profile-comment" id="comment-input" minlength="2" maxlength="200" type="text"
-                    class="form__input" required>
+                <input name="about" id="comment-input" minlength="2" maxlength="200" type="text" class="form__input"
+                    required>
                 <span class="form__error-message comment-input-error"></span>
 
 
@@ -56,11 +64,14 @@
     </div>
     <main class="content">
         <section class="profile">
-            <img src="<%=require('./images/avatar.png')%>" alt="Аватар профиля" class="profile__avatar">
+            <div class="profile__avatar-container">
+                <img alt="Аватар профиля" class="profile__avatar">
+                <span class="profile__pen"></span>
+            </div>
             <div class="profile__info">
-                <h1 class="profile__name overflow-text-content">Жак-Ив Кусто</h1>
+                <h1 class="profile__name overflow-text-content"></h1>
                 <button aria-label="Редактировать" type="button" class="profile__edit-button button"></button>
-                <p class="profile__comment overflow-text-content">Исследователь океана</p>
+                <p class="profile__comment overflow-text-content"></p>
 
             </div>
             <button aria-label="Добавить" type="button" class="profile__add-button button"></button>

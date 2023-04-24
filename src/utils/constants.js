@@ -1,8 +1,9 @@
 
-export const nameInput = document.querySelector('.form__input[name="profile-name"]');
-export const commentInput = document.querySelector('.form__input[name="profile-comment"]');
+export const nameInput = document.querySelector('.form__input[name="name"]');
+export const commentInput = document.querySelector('.form__input[name="about"]');
 export const buttonEditProfile = document.querySelector('.profile__edit-button');
 export const buttonAddCard = document.querySelector('.profile__add-button');
+export const avatar = document.querySelector('.profile__avatar');
 
 
 export const formValidators = {}
