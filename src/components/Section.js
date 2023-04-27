@@ -1,15 +1,17 @@
 export default class Section {
-    constructor(renderer, containerSelector) {
-
+    constructor(renderer, containerSelector, api) {
+        this._api = api;
         this._renderer = renderer;
         this._container = document.querySelector(containerSelector);
     }
 
     renderItems(items) {
-        //reverse для отображения сначала более "свежих карточек"
-        items.reverse().forEach(element => {
-            this._renderer(element);
-        });
+        this._api.getUser().then((user) => {
+            items.reverse().forEach(element => {
+                this._renderer(element, user);
+            });
+        })
+
     }
 
     addItem(element) {

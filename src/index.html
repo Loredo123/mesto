@@ -12,14 +12,25 @@
     <header class="header">
         <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Логотип проекта 'Место'">
     </header>
-    <!-- <div class="popup popup__avatar">
+    <div class="popup popup_confirm ">
+        <div class="popup__container">
+            <h2 class="form__title form__title_confirm">Вы уверены?</h2>
+            <button type="submit" class="form__button-save form__button-confirm button">Да</button>
+            <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
+        </div>
+    </div>
+    <div class="popup popup_avatar">
         <div class="popup__container">
             <form name="form-avatar" class="form" novalidate autocomplete="off">
+                <h2 class="form__title">Обновить аватар</h2>
                 <input name="avatar" class="form__input" id="url-avatar" type="url" placeholder="Ссылка на картинку"
                     required>
+                <span class="form__error-message url-avatar-error"></span>
+                <button type="submit" class="form__button-save form__button-save_avatar button">Сохранить</button>
             </form>
+            <button aria-label="Закрыть" type="button" class="popup__button-exit button"></button>
         </div>
-    </div> -->
+    </div>
     <div class="popup popup_profile">
         <div class="popup__container">
             <form name="form-edit" class="form" novalidate autocomplete="off">
@@ -66,7 +77,6 @@
         <section class="profile">
             <div class="profile__avatar-container">
                 <img alt="Аватар профиля" class="profile__avatar">
-                <span class="profile__pen"></span>
             </div>
             <div class="profile__info">
                 <h1 class="profile__name overflow-text-content"></h1>
@@ -84,7 +94,10 @@
                             <img class="card__image">
                             <div class="card__info overflow-text-content">
                                 <h2 class="card__place-name overflow-text-content"></h2>
-                                <button type="button" aria-label="Лайк" class="card__like button"></button>
+                                <div class="card__likes">
+                                    <button type="button" aria-label="Лайк" class="card__like button"></button>
+                                    <span class="card__counter"></span>
+                                </div>
                             </div>
                             <img src="<%=require('./images/trash.svg')%>" alt="Удалить картинку"
                                 class="card__remove button">

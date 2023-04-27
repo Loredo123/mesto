@@ -1,9 +1,9 @@
 export default class Api {
-    constructor(options) {
+    constructor(options, isLoading) {
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
         this._profile = options.profile;
-
+        this._isLoading = isLoading;
     }
 
     getInitialCards() {
@@ -55,14 +55,14 @@ export default class Api {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
-            body: {
+            body: JSON.stringify({
                 avatar: avatar
-            }
+            })
         })
     }
 
     addCard(card) {
-        fetch(`${this._baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -72,6 +72,33 @@ export default class Api {
         })
 
             .catch((error) => console.log(error))
+
+    }
+
+    deleteCard(id) {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .catch((error) => console.log(error))
+    }
+
+    addLike(id) {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+            method: 'PUT',
+            headers: this._headers,
+
+        })
+            .catch(err => console.log(err));
+    }
+
+    deleteLike(id) {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+            method: 'DELETE',
+            headers: this._headers,
+
+        })
+            .catch(err => console.log(err));
     }
 }
 
