@@ -6,12 +6,10 @@ export default class Section {
     }
 
     renderItems(items) {
-        this._api.getUser().then((user) => {
-            items.reverse().forEach(element => {
-                this._renderer(element, user);
-            });
-        })
+        items.reverse().forEach(element => {
+            this._renderer(element);
 
+        })
     }
 
     addItem(element) {

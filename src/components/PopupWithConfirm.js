@@ -2,11 +2,12 @@ import Popup from "./Popup";
 
 
 export default class PopupWithConfirm extends Popup {
-    constructor(popupSelector, api, renderCards) {
+    constructor(popupSelector, api) {
         super(popupSelector);
-        this._render = renderCards;
+
         this._api = api;
         this._id;
+        this._card;
         this._button = this._popup.querySelector('.button');
 
     }
@@ -15,22 +16,22 @@ export default class PopupWithConfirm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._button.addEventListener('click', (e) => {
-            this._confirm(this._id);
+            this._confirm(this._id, this._card);
 
         })
     }
 
-    open(cardId) {
+    open(cardId, cardElement) {
         super.open();
+        this._card = cardElement;
         this._id = cardId;
 
     }
 
-    _confirm(id) {
+    _confirm(id, card) {
         this._api.deleteCard(id)
             .then(() => {
-
-                this._render();
+                card.remove();
                 this.close();
             })
 

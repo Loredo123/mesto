@@ -23,7 +23,7 @@ export class Card {
     }
 
     // создает и возвращает готовую карточку
-    createCard(user) {
+    createCard(userId) {
         this._element = this._getTemplate();
         this._cardImage = this._element.querySelector('.card__image');
         this._cardLike = this._element.querySelector('.card__like');
@@ -35,11 +35,11 @@ export class Card {
         this._cardImage.alt = `На фото - ${this._name}`;
         this._likeCount.textContent = this._likes.length;
         this._likes.forEach(element => {
-            if (element._id === user._id) {
+            if (element._id === userId) {
                 this._cardLike.classList.add('card__like_active');
             }
         });
-        if (user._id != this._owner._id) {
+        if (userId != this._owner._id) {
             this._trash.style.display = 'none';
         }
         return this._element;
@@ -48,7 +48,7 @@ export class Card {
     _setEventListeners() {
         this._trash.addEventListener('click', () => {
 
-            this._handleTrashClick(this._id);
+            this._handleTrashClick(this._id, this._element);
         });
 
         this._cardLike.addEventListener('click', () => {
@@ -69,19 +69,21 @@ export class Card {
     _handleLikeCard() {
         if (this._isActive()) {
             this._api.deleteLike(this._id)
-                .then((res) => res.json())
-                .then((data) => this._likeCount.textContent = data.likes.length);
+
+                .then((data) => {
+                    this._likeCount.textContent = data.likes.length
+                    this._cardLike.classList.toggle('card__like_active');
+                });
+
         } else this._api.addLike(this._id)
-            .then((res) => res.json())
-            .then((data) => this._likeCount.textContent = data.likes.length);
 
-        this._cardLike.classList.toggle('card__like_active');
+            .then((data) => {
+                this._likeCount.textContent = data.likes.length;
+                this._cardLike.classList.toggle('card__like_active');
+            });
+
+
     }
 
-    // удаляет карточку
 
-    _handleRemoveCard() {
-        this._element.remove();
-        this._element = null;
-    }
 }

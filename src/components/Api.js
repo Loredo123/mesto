@@ -10,15 +10,8 @@ export default class Api {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject((err) => console.log(err.status));
-            })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`);
-            })
+            .then(this._checkResponse)
+
 
 
     }
@@ -27,15 +20,8 @@ export default class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject((err) => console.log(err));
-            })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`);
-            })
+            .then(this._checkResponse)
+
     }
 
     editUser(user) {
@@ -47,9 +33,8 @@ export default class Api {
                 about: user.about
             })
         })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`);
-            })
+            .then(this._checkResponse)
+
     }
     changeAvatar(avatar) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -58,7 +43,7 @@ export default class Api {
             body: JSON.stringify({
                 avatar: avatar
             })
-        })
+        }).then(this._checkResponse)
     }
 
     addCard(card) {
@@ -70,8 +55,8 @@ export default class Api {
                 link: card.link
             })
         })
+            .then(this._checkResponse)
 
-            .catch((error) => console.log(error))
 
     }
 
@@ -80,7 +65,8 @@ export default class Api {
             method: 'DELETE',
             headers: this._headers
         })
-            .catch((error) => console.log(error))
+            .then(this._checkResponse)
+
     }
 
     addLike(id) {
@@ -89,7 +75,8 @@ export default class Api {
             headers: this._headers,
 
         })
-            .catch(err => console.log(err));
+            .then(this._checkResponse)
+
     }
 
     deleteLike(id) {
@@ -98,7 +85,17 @@ export default class Api {
             headers: this._headers,
 
         })
-            .catch(err => console.log(err));
+            .then(this._checkResponse)
+
+    }
+
+
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+
     }
 }
 
