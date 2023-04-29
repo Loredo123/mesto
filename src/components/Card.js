@@ -73,14 +73,17 @@ export class Card {
                 .then((data) => {
                     this._likeCount.textContent = data.likes.length
                     this._cardLike.classList.toggle('card__like_active');
-                });
+                })
+                .catch((err) => console.log(err));
+
 
         } else this._api.addLike(this._id)
 
             .then((data) => {
                 this._likeCount.textContent = data.likes.length;
                 this._cardLike.classList.toggle('card__like_active');
-            });
+            })
+            .catch((err) => console.log(err));
 
 
     }

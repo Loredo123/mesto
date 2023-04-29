@@ -34,6 +34,7 @@ export default class PopupWithConfirm extends Popup {
                 card.remove();
                 this.close();
             })
+            .catch((err) => console.log(err))
 
     }
 
